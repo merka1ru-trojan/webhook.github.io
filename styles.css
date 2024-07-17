@@ -1,0 +1,10 @@
+.welcome-content {
+    background: rgba(255, 255, 255, 0.8); /* Полупрозрачный белый фон */
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    color: #333;
+    font-size: 24px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    border: 2px solid rgba(128, 128, 128, 0.5); /* Полупрозрачная серая обводка */
+}
