@@ -156,16 +156,12 @@
             });
         });
 
-        // View counter logic
-        let views = localStorage.getItem('view_count');
-        if (views === null) {
-            views = 0;
-        } else {
-            views = parseInt(views, 10);
-        }
-        views += 1;
-        localStorage.setItem('view_count', views);
-        document.getElementById('view-count').innerText = views;
+        // Запрос на сервер для обновления счетчика просмотров
+        fetch('/visit')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('view-count').innerText = data.count;
+            });
     </script>
 </body>
 </html>
