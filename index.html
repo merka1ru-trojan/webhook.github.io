@@ -64,6 +64,18 @@
         .message-box {
             height: 100px;
             resize: none;
+            padding-left: 30px; /* Space for the line */
+        }
+        .color-picker {
+            margin-bottom: 10px;
+        }
+        .line {
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 5px;
+            background-color: #7289da; /* Default color */
         }
         .send-button {
             background-color: #7289da;
@@ -134,6 +146,10 @@
     <div class="container">
         <input id="webhook-url" class="input-box" type="text" placeholder="Enter your Discord webhook URL">
         <textarea id="message" class="input-box message-box" placeholder="Enter your message"></textarea>
+        <div class="color-picker">
+            <label for="color-select">Select line color:</label>
+            <input id="color-select" type="color" value="#7289da">
+        </div>
         <button id="send-button" class="send-button">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
                 <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>
@@ -167,7 +183,7 @@
             const payload = {
                 embeds: [{
                     description: message,
-                    color: 5814783 // You can change the color code to any integer value
+                    color: parseInt(document.getElementById('color-select').value.slice(1), 16) // Convert hex color to integer
                 }]
             };
 
@@ -204,6 +220,11 @@
         setTimeout(() => {
             welcomeOverlay.classList.remove('active');
         }, 3000);
+
+        // Update line color based on color picker
+        document.getElementById('color-select').addEventListener('input', function() {
+            document.querySelector('.line').style.backgroundColor = this.value;
+        });
     </script>
 </body>
 </html>
