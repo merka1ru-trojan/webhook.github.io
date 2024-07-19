@@ -131,6 +131,30 @@
             opacity: 1;
             visibility: visible;
         }
+
+        /* Mobile styles */
+        @media (max-width: 600px) {
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .title {
+                font-size: 20px;
+            }
+            .subtitle {
+                font-size: 12px;
+            }
+            .input-box {
+                width: 90%;
+            }
+            .send-button {
+                width: 90%;
+                justify-content: center;
+            }
+            .view-counter {
+                font-size: 14px;
+            }
+        }
     </style>
 </head>
 <body>
