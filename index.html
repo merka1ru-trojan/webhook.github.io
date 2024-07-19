@@ -64,14 +64,14 @@
         .message-box {
             height: 100px;
             resize: none;
-            padding-left: 30px; /* Space for the line */
+            position: relative;
         }
         .color-picker {
             margin-bottom: 10px;
         }
         .line {
             position: absolute;
-            left: 10px;
+            left: 0;
             top: 0;
             bottom: 0;
             width: 5px;
@@ -109,122 +109,4 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.5s, visibility 0.5s;
-        }
-        .welcome-content {
-            background: rgba(255, 255, 255, 0.8);
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            color: #333;
-            font-size: 24px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-            border: 2px solid rgba(128, 128, 128, 0.5);
-        }
-        .welcome-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-    </style>
-</head>
-<body>
-    <div class="header">
-        <a href="https://discord.gg/YDfj3Xu9Pa" class="discord-icon" target="_blank">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-                <path d="M14.82 4.26a10.14 10.14 0 0 0-.53 1.1 14.66 14.66 0 0 0-4.58 0 10.14 10.14 0 0 0-.53-1.1 16 16 0 0 0-4.13 1.3 17.33 17.33 0 0 0-3 11.59 16.6 16.6 0 0 0 5.07 2.59A12.89 12.89 0 0 0 8.23 18a9.65 9.65 0 0 1-1.71-.83 3.39 3.39 0 0 0 .42-.33 11.66 11.66 0 0 0 10.12 0q.21.18.42.33a10.84 10.84 0 0 1-1.71.84 12.41 12.41 0 0 0 1.08 1.78 16.44 16.44 0 0 0 5.06-2.59 17.22 17.22 0 0 0-3-11.59 16.09 16.09 0 0 0-4.14-1.35zM8.68 14.81a1.94 1.94 0 0 1-1.8-2 1.93 1.93 0 0 1 1.8-2 1.93 1.93 0 0 1 1.8 2 1.93 1.93 0 0 1-1.8 2zm6.64 0a1.94 1.94 0 0 1-1.8-2 1.93 1.93 0 0 1 1.8-2 1.92 1.92 0 0 1 1.8 2 1.92 1.92 0 0 1-1.8 2z"/>
-            </svg>
-        </a>
-        <div class="title">  ᴅɪsᴄᴏʀᴅ ᴡᴇʙʜᴏᴏᴋ sᴇɴᴅᴇʀ</div>
-        <div class="subtitle">(ʙʏ ᴍᴇʀᴋᴀ1ʀᴜ)</div>
-    </div>
-    <div class="container">
-        <input id="webhook-url" class="input-box" type="text" placeholder="Enter your Discord webhook URL">
-        <textarea id="message" class="input-box message-box" placeholder="Enter your message"></textarea>
-        <div class="color-picker">
-            <label for="color-select">Select line color:</label>
-            <input id="color-select" type="color" value="#7289da">
-        </div>
-        <button id="send-button" class="send-button">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
-                <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>
-            </svg>
-            Send
-        </button>
-        <div class="view-counter">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM144 256a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm144-64c0 35.3-28.7 64-64 64c-7.1 0-13.9-1.2-20.3-3.3c-5.5-1.8-11.9 1.6-11.7 7.4c.3 6.9 1.3 13.8 3.2 20.7c13.7 51.2 66.4 81.6 117.6 67.9s81.6-66.4 67.9-117.6c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3z"/></svg>
-            <span id="view-count">0</span>
-        </div>
-    </div>
-    <div class="welcome-overlay">
-        <div class="welcome-content">
-            Приветствую!
-        </div>
-    </div>
-
-    <script>
-        document.getElementById('send-button').addEventListener('click', function() {
-            const webhookUrl = document.getElementById('webhook-url').value;
-            const message = document.getElementById('message').value;
-            if (webhookUrl.trim() === '') {
-                alert('Please enter a webhook URL');
-                return;
-            }
-            if (message.trim() === '') {
-                alert('Please enter a message');
-                return;
-            }
-
-            const payload = {
-                embeds: [{
-                    description: message,
-                    color: parseInt(document.getElementById('color-select').value.slice(1), 16) // Convert hex color to integer
-                }]
-            };
-
-            fetch(webhookUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(payload)
-            })
-            .then(response => {
-                if (response.ok) {
-                    alert('Message sent successfully!');
-                } else {
-                    alert('Failed to send message.');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Failed to send message.');
-            });
-        });
-
-        // Запрос на сервер для обновления счетчика просмотров
-        fetch('/visit')
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('view-count').innerText = data.count;
-            });
-
-        // Анимация приветствия
-        const welcomeOverlay = document.querySelector('.welcome-overlay');
-        welcomeOverlay.classList.add('active');
-        setTimeout(() => {
-            welcomeOverlay.classList.remove('active');
-        }, 3000);
-
-        // Update line color based on color picker
-        document.getElementById('color-select').addEventListener('input', function() {
-            document.querySelector('.line').style.backgroundColor = this.value;
-        });
-    </script>
-</body>
-</html>
+           
