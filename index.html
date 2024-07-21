@@ -168,6 +168,7 @@
         <div class="subtitle">(ʙʏ ᴍᴇʀᴋᴀ1ʀᴜ)</div>
     </div>
     <div class="container">
+        <select id="webhook-history" class="input-box" onchange="selectWebhook(this.value)"></select>
         <input id="webhook-url" class="input-box" type="text" placeholder="Enter your Discord webhook URL">
         <div class="message-box-container">
             <div class="line" id="line"></div>
@@ -194,8 +195,30 @@
     </div>
 
     <script>
+        const webhookHistory = document.getElementById('webhook-history');
+        const webhookUrlInput = document.getElementById('webhook-url');
+
+        function loadWebhookHistory() {
+            const history = JSON.parse(localStorage.getItem('webhookHistory')) || [];
+            webhookHistory.innerHTML = history.map(url => `<option value="${url}">${url}</option>`).join('');
+        }
+
+        function saveWebhook(url) {
+            let history = JSON.parse(localStorage.getItem('webhookHistory')) || [];
+            if (!history.includes(url)) {
+                history.unshift(url);
+                if (history.length > 5) history.pop(); // Keep only the last 5 webhooks
+                localStorage.setItem('webhookHistory', JSON.stringify(history));
+                loadWebhookHistory();
+            }
+        }
+
+        function selectWebhook(url) {
+            webhookUrlInput.value = url;
+        }
+
         document.getElementById('send-button').addEventListener('click', function() {
-            const webhookUrl = document.getElementById('webhook-url').value;
+            const webhookUrl = webhookUrlInput.value;
             const message = document.getElementById('message').value;
             if (webhookUrl.trim() === '') {
                 alert('Please enter a webhook URL');
@@ -205,6 +228,8 @@
                 alert('Please enter a message');
                 return;
             }
+
+            saveWebhook(webhookUrl);
 
             const payload = {
                 embeds: [{
@@ -251,6 +276,8 @@
         document.getElementById('color-select').addEventListener('input', function() {
             document.getElementById('line').style.backgroundColor = this.value;
         });
+
+        loadWebhookHistory();
     </script>
 </body>
 </html>
