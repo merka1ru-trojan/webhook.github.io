@@ -77,7 +77,7 @@
             width: 5px;
             background-color: #7289da; /* Default color */
         }
-        .send-button {
+        .send-button, .copy-button {
             background-color: #7289da;
             border: none;
             border-radius: 5px;
@@ -87,8 +87,9 @@
             display: flex;
             align-items: center;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            margin-top: 10px;
         }
-        .send-button svg {
+        .send-button svg, .copy-button svg {
             margin-right: 10px;
         }
         .view-counter {
@@ -147,7 +148,7 @@
             .input-box {
                 width: 90%;
             }
-            .send-button {
+            .send-button, .copy-button {
                 width: 90%;
                 justify-content: center;
             }
@@ -170,6 +171,13 @@
     <div class="container">
         <select id="webhook-history" class="input-box" onchange="selectWebhook(this.value)"></select>
         <input id="webhook-url" class="input-box" type="text" placeholder="Enter your Discord webhook URL">
+        <button id="copy-button" class="copy-button" onclick="copyWebhook()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+                <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+                <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+            </svg>
+            Copy Webhook
+        </button>
         <div class="message-box-container">
             <div class="line" id="line"></div>
             <textarea id="message" class="input-box message-box" placeholder="Enter your message"></textarea>
@@ -215,6 +223,20 @@
 
         function selectWebhook(url) {
             webhookUrlInput.value = url;
+        }
+
+        function copyWebhook() {
+            const webhookUrl = webhookUrlInput.value;
+            if (webhookUrl.trim() === '') {
+                alert('Please enter a webhook URL');
+                return;
+            }
+            navigator.clipboard.writeText(webhookUrl).then(() => {
+                alert('Webhook URL copied to clipboard!');
+            }).catch(err => {
+                console.error('Could not copy text: ', err);
+                alert('Failed to copy webhook URL.');
+            });
         }
 
         document.getElementById('send-button').addEventListener('click', function() {
